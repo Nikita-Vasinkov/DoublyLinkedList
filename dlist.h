@@ -22,6 +22,8 @@ public:
     void AddElementEnd(const T& value);
     void AddElementStart(const T& value);
     void RmLastElement();
+
+    
     Mylist& operator=(const Mylist& other);
 
     class Iterator {
@@ -29,19 +31,26 @@ public:
         struct Node* current;
 
     public:
+        friend class Mylist;
         Iterator();
         Iterator(struct Node* node);
         int& operator*();
         Iterator& operator++();
         Iterator& operator--();
         bool operator!=(const Iterator& other) const;
+        bool operator==(const Iterator& other) const;
     };
+    
+    void AddElementPos(const T& value,Iterator position);
+    void RmElementPos(Iterator position);
+    T GetElementPos(Iterator position);
 
     Iterator begin();
+    Iterator rbegin();
     Iterator end();
+    Iterator rend();
 };
 
 #endif
-
 
 

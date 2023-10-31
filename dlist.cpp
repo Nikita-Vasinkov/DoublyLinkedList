@@ -129,6 +129,45 @@ bool Mylist<T>::Iterator::operator!=(const Iterator& other) const {
 }
 
 template <typename T>
+bool Mylist<T>::Iterator::operator==(const Iterator& other) const {
+    return current == other.current;
+}
+
+template <typename T>
+void Mylist<T>::AddElementPos(const T& value, typename Mylist<T>::Iterator position){
+    if (position == begin()){
+        AddElementStart(value);
+        return;
+    }
+    if ((position.current == NULL) || (position == end())) {
+        AddElementEnd(value);
+        return;
+    }
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = position.current;
+    newNode->prev = position.current->prev;
+    position.current->prev->next = newNode;
+    position.current->next->prev = newNode;
+}
+
+template <typename T>
+T Mylist<T>::GetElementPos(typename Mylist<T>::Iterator position){
+    return *position;
+}
+
+template <typename T>
+void Mylist<T>::RmElementPos(Iterator position){
+    if(position == end()){
+        RmLastElement();
+    }else{
+        position.current->prev->next = position.current->next;
+        position.current->next->prev = position.current->prev;
+        free(position.current);
+    }
+}
+
+template <typename T>
 typename Mylist<T>::Iterator Mylist<T>::begin() {
     return Iterator(head);
 }
@@ -137,8 +176,16 @@ template <typename T>
 typename Mylist<T>::Iterator Mylist<T>::end() {
     return Iterator(NULL);
 }
+template <typename T>
+typename Mylist<T>::Iterator Mylist<T>::rbegin() {
+    return Iterator(tail);
+}
+
+template <typename T>
+typename Mylist<T>::Iterator Mylist<T>::rend() {
+    return Iterator(NULL);
+}
 
 template class Mylist<int>;
-
 
 
