@@ -34,7 +34,7 @@ public:
         friend class Mylist;
         Iterator();
         Iterator(struct Node* node);
-        int& operator*();
+        T& operator*();
         Iterator& operator++();
         Iterator& operator--();
         bool operator!=(const Iterator& other) const;
@@ -43,6 +43,8 @@ public:
     
     void AddElementPos(const T& value,Iterator position);
     void RmElementPos(Iterator position);
+    void Swap(Iterator it1, Iterator it2);
+
     T GetElementPos(Iterator position);
 
     Iterator begin();

@@ -1,4 +1,5 @@
 #include "dlist.h"
+#include "polynomials.h"
 
 template <typename T>
 Mylist<T>::Mylist() {
@@ -107,7 +108,7 @@ Mylist<T>::Iterator::Iterator(struct Node* node) {
 }
 
 template <typename T>
-int& Mylist<T>::Iterator::operator*() {
+T& Mylist<T>::Iterator::operator*() {
     return current->data;
 }
 
@@ -168,6 +169,13 @@ void Mylist<T>::RmElementPos(Iterator position){
 }
 
 template <typename T>
+void Mylist<T>::Swap(Iterator it1, Iterator it2) {
+    T temp = *it1;
+    *it1 = *it2;
+    *it2 = temp;
+}
+
+template <typename T>
 typename Mylist<T>::Iterator Mylist<T>::begin() {
     return Iterator(head);
 }
@@ -176,6 +184,7 @@ template <typename T>
 typename Mylist<T>::Iterator Mylist<T>::end() {
     return Iterator(NULL);
 }
+
 template <typename T>
 typename Mylist<T>::Iterator Mylist<T>::rbegin() {
     return Iterator(tail);
@@ -187,5 +196,6 @@ typename Mylist<T>::Iterator Mylist<T>::rend() {
 }
 
 template class Mylist<int>;
-
+template class Mylist<char>;
+template class Mylist< Mylist<char> >;
 
